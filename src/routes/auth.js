@@ -17,5 +17,25 @@ res.status(200).json(user)
 res.status(500).send(e)
 }
 })
-module.exports=router
+
 //login
+router.post('/login',async(req,res)=>{
+    try{
+        const user=await User.findOne({username:req.body.username})
+        if(!user) return res.status(401).json('Unable to login')
+        const match= await bcrypt.compare(req.body.password,user.password);
+if(!match){
+    res.status(401).send('Unable to login check your credentials')
+}
+const {password,...others}=user._doc
+res.json({others})
+    }catch(e){
+res.status(400).send()
+    }
+})
+
+
+
+
+
+module.exports=router

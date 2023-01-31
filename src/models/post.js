@@ -25,4 +25,4 @@ required:false
 },
 {timestamps:true}
 );
-module.exports=model('Post',UserSchema)
+module.exports=mongoose.model('Post',PostSchema)
