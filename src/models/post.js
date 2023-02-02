@@ -7,16 +7,12 @@ const PostSchema=new mongoose.Schema({
     unique:true
   },
   desc:{
-type:String,
-required:true
+   type:String,
+   required:true
   },
-  photo:{
+  image:{
     type:String,
     required:false
-  },
-  username: {
-    type: String,
-    required: true,
   },
 },
 {timestamps:true}
