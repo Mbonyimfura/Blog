@@ -179,16 +179,16 @@ exports.postRouteDocs = {
     "/api/posts":{
         post:createPost
     },
-    "/api/posts":{
+    "/api/posts/getAll":{
         get:listAllPosts
     },
-    "/api/posts/{id}":{
+    "/api/posts/get/{id}":{
         get:getPostById
     },
-    "/api/posts/{id}":{
+    "/api/posts/delete/{id}":{
         delete:deletePost
     },
-    "/api/posts/{id}":{
+    "/api/posts/update/{id}":{
         patch:updatePost
     }
 }

@@ -250,10 +250,10 @@ exports.userRouteDocs = {
 "/api/users/{id}":{
     get:getUserById,
 },
-"/api/users/{id}":{
+"/api/users/update/{id}":{
+    patch:updateUserById,
+},
+"/api/users/delete/{id}":{
     delete:deleteUserById
 },
-"/api/users/{id}":{
-    patch:updateUserById
-}
 };

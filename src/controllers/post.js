@@ -1,6 +1,5 @@
 const cloudinary=require("../../helpers/cloudinary");
 const Post=require('../models/post')
-
 //Create post
 const createPost=async(req,res)=>{
   try{
@@ -27,26 +26,21 @@ const getPost= async (req, res) => {
 }
 //update post
 const updatePost=async(req,res)=>{
-    try {
-        const post = await Post.findById(req.params.id);
-        if (post.username === req.body.username) {
-          try {
-            const posts = await Post.findByIdAndUpdate(
-              req.params.id,
-              {
-                $set: req.body,
-              },
-              { new: true }
-            );
-            res.status(200).json(posts);
-          } catch (err) {
-            res.status(500).json(err);
-          }
-        } else {
-          res.status(401).json("You can update only your post!");
-        }
-      } catch (err) {
-        res.status(500).json(err);
+  try {
+    const post=await Post.findById(req.params.id);
+    await cloudinary.uploader.destroy(post.image);
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const updated = await Post.findByIdAndUpdate(req.params.id,{$set:{
+        title:req.body.title, 
+        desc:req.body.desc,
+        image:result.secure_url,
+      }},{new:true});
+      res.status(200).json({
+        status:"success",
+        data:updated
+      });
+    } catch (error) {
+        res.status(500).json({status:"error", error: error.message });
       }
 }
 //delete post

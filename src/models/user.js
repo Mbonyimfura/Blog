@@ -22,13 +22,10 @@ const UserSchema=new mongoose.Schema({
     role:{
         type:String,
         default:'user'
+    },
+    token:{
+        type:String
     }
-    // tokens:[{
-    //     token:{
-    //         type:String,
-    //         required:true
-    //     }
-    // }]
 },
 
 {timestamps:true}
