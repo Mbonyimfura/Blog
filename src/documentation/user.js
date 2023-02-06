@@ -204,7 +204,7 @@ requestBody:{
                     email:{
                         type:"string",
                         description:"user email",
-                        example:"diamond@gmail.com"
+                        example:"shooter@gmail.com"
                     },
                     password:{
                         type:"string",
