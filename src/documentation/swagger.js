@@ -17,7 +17,7 @@ const options = {
         description: 'Development server',
       },
       {
-        url: 'http://localhost:8000',
+        url: 'https://tresor.onrender.com/',
         description: 'Production server',
       },
     ],
