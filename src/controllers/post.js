@@ -1,4 +1,5 @@
 const cloudinary=require("../../helpers/cloudinary");
+const comment = require("../models/comment");
 const Post=require('../models/post')
 //Create post
 const createPost=async(req,res)=>{
@@ -67,9 +68,9 @@ const getAllPost=async(req,res)=>{
     try {
       let posts;
       if (username) {
-        posts = await Post.find({ username });
+        posts = await Post.find({ username })
       } else {
-        posts = await Post.find();
+        posts = await Post.find().populate('comments')
       }
       res.status(200).json(posts);
     } catch (err) {
