@@ -175,6 +175,60 @@ const updatePost = {
         }
     }
 }
+const likePost = {
+    tags:['Post'],
+    description:"Like a Post",
+    parameters:[
+        {
+            name:"id",
+            in:"path",
+            description:"id of the post",
+            type:"string",
+            example:"63caaf3527b29e1d399896da"
+        }
+    ],
+    responses:{
+        200:{
+            description:"OK",
+            content:{
+                 "application/json":{
+                    type:'object',
+                    example:{
+                        status:"success",
+                        data:[]
+                    }
+                 }
+            }
+        }
+    }
+}
+const unLikePost = {
+    tags:['Post'],
+    description:"unlike a Post",
+    parameters:[
+        {
+            name:"id",
+            in:"path",
+            description:"id of the blog",
+            type:"string",
+            example:"63caaf3527b29e1d399896da"
+        }
+    ],
+    responses:{
+        200:{
+            description:"OK",
+            content:{
+                 "application/json":{
+                    type:'object',
+                    example:{
+                        status:"success",
+                        data:[]
+                    }
+                 }
+            }
+        }
+    }
+}
 exports.postRouteDocs = {
     "/api/posts":{
         post:createPost
@@ -190,5 +244,11 @@ exports.postRouteDocs = {
     },
     "/api/posts/update/{id}":{
         patch:updatePost
+    },
+    "/api/posts/like/{id}":{
+        post:likePost
+    },
+    "/api/posts/unlike/{id}":{
+        post:unLikePost
     }
 }

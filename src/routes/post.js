@@ -1,6 +1,6 @@
 const router=require('express').Router();
 const auth=require('../middleware/auth')
-const {createPost,getAllPost,getPost,updatePost,deletePost}=require('../controllers/post')
+const {createPost,getAllPost,getPost,updatePost,deletePost,postLikes,unLikePost}=require('../controllers/post')
 const multer=require('../../helpers/multer');
 router.post('/',multer.upload.single("image"),auth.userRole,createPost);
  router.route('/').post(auth.userRole,createPost)
@@ -12,6 +12,9 @@ router.route('/update/:id').patch(multer.upload.single("image"),auth.userRole,up
 router.route('/delete/:id').delete(auth.userRole,deletePost);
 //GET ALL POSTS
 router.route('/getAll/').get(getAllPost)
+//post likes
+router.route('/like/:id').post(postLikes)
+router.route('/unlike/:id').post(unLikePost)
   
 
 

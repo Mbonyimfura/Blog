@@ -76,7 +76,34 @@ const getAllPost=async(req,res)=>{
       res.status(500).json(err);
     }
 }
-
+//post likes
+const postLikes=async(req,res)=>{
+  try {
+    const post=await Post.findOne({_id:req.params.id})  
+    if(!post){
+      res.status(500).json({message:"Post not found"})  
+    }
+    await Post.updateOne({_id:post._id},{
+      likes:post.likes+1})
+      res.status(201).json('post has been liked')
+  } catch (error) {
+    res.status(400).json(error)  
+  }
+}
+const unLikePost=async(req,res)=>{
+  try {
+    const post =await Post.findOne({_id:req.params.id})
+    if(!post){
+      res.status(500).json('Post not found')
+    }
+    await Post.updateOne({_id:post._id},{
+      likes:post.likes-1
+    })
+    res.status(201).json('post has been unliked')
+  } catch (error) {
+    res.status(400).json(error)
+  }
+}
 module.exports={
-    createPost,updatePost,getAllPost,getPost,deletePost
+    createPost,updatePost,getAllPost,getPost,deletePost,postLikes,unLikePost
 }

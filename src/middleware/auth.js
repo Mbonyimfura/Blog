@@ -5,7 +5,11 @@ const verifyToken=async(req,res,next)=>{
     if(!token) return res.status(404).json({message:'token not found'})
     try{
     const decoded=jwt.verify(token,process.env.TOKEN_KEY)
+   
+
     req.user=decoded
+    
+
     next();
     }
     catch(e){
