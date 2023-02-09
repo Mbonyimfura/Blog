@@ -10,9 +10,8 @@ exports.create=async(req,res)=>{
        user:req.user.id
      });
     post.comments.push(comment)
-    res.status(201).json(comment)
-    console.log(req.user.id);
-    
+    await post.save()
+    res.status(201).json(comment) 
 
     }
     
