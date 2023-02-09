@@ -3,6 +3,7 @@ const cors=require('cors')
 const AuthRoute=require('../src/routes/auth')
 const userRoute=require('../src/routes/user')
 const postRoute=require('../src/routes/post')
+const commentRoute=require('../src/routes/comment')
 const swaggerDocs=require('../src/documentation/swagger')
 const app=express()
 // app.use(express.static(__dirname,'../public'))
@@ -15,5 +16,6 @@ swaggerDocs(app);
 app.use('/api/auth',AuthRoute)
 app.use('/api/users',userRoute)
 app.use('/api/posts',postRoute)
+app.use('/api/comments',commentRoute)
 
 module.exports=app
