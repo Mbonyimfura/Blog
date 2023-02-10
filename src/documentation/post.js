@@ -209,7 +209,7 @@ const unLikePost = {
         {
             name:"id",
             in:"path",
-            description:"id of the blog",
+            description:"id of the post",
             type:"string",
             example:"63caaf3527b29e1d399896da"
         }
@@ -225,6 +225,53 @@ const unLikePost = {
                         data:[]
                     }
                  }
+            }
+        }
+    }
+}
+const createComment = {
+    tags:['Post'],
+    description:"Create a comment",
+    security: [
+        {
+          token: [],
+        },
+    ],
+    requestBody:{
+        content:{
+            "multipart/form-data":{
+                schema:{
+                    type:"object",
+                    properties:{
+                        comment:{
+                            type:"string",
+                        },
+                        
+                    }
+                }
+            }
+        }
+    },
+    parameters:[
+        {
+            name:"id",
+            in:"path",
+            description:"id of the post",
+            type:"string",
+            example:"63caaf3527b29e1d399896da"
+        }
+    ],
+    responses:{
+        201:{
+            description:"Created",
+            content:{
+                "application/json":{
+                    type:"object",
+                    example:{
+                        status:"success",
+                        data:[]
+                    }
+                }
             }
         }
     }
@@ -250,5 +297,8 @@ exports.postRouteDocs = {
     },
     "/api/posts/unlike/{id}":{
         post:unLikePost
-    }
+    },
+    "/api/comments/create/{id}":{
+        post:createComment
+    },
 }

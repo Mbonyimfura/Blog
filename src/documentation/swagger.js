@@ -2,7 +2,7 @@ const swaggerUi=require('swagger-ui-express');
 const swaggerJSDocs=require('swagger-jsdoc');
 const userRouteDocs=require('./user');
 const postRouteDocs=require('./post');
-
+const estateRouteDocs=require('./estate')
 const options = {
   definition: {
     openapi: '3.0.0',
@@ -24,6 +24,7 @@ const options = {
     tags: [
       { name: 'User', description: 'User Routes' },
       { name: 'Post', description: 'Post Routes' },
+      {name:'Estate',description:'Estate Route'}
     ],
     components: {
       securitySchemes: {
@@ -36,13 +37,15 @@ const options = {
         },
       },
     },
-    paths: { ...userRouteDocs.userRouteDocs,...postRouteDocs.postRouteDocs},
+    paths: { ...userRouteDocs.userRouteDocs,...postRouteDocs.postRouteDocs,...estateRouteDocs.estateRouteDocs},
   },
   apis: ['../routes/**/*.js'],
 };
 const swaggerSpec = swaggerJSDocs(options);
 const swaggerDocs = (app) => {
-  app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerSpec,{explorer:true,
+    customCssUrl:
+    "https://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.0/themes/3.x/theme-newspaper.css",}));
   app.get('/documentation.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(swaggerSpec);
