@@ -1,7 +1,7 @@
 const mongoose=require('mongoose')
 
 const realEstateSchema=new mongoose.Schema({
-    location:[{
+    location:{
         province:{
             type:String,
         },
@@ -11,19 +11,20 @@ const realEstateSchema=new mongoose.Schema({
         street:{
             type:String,
         }
-    }],
+    },
     price:{
         type:String
     },
-    images:[{
-        type:String,
-        required:true
-    }],
+    images:{
+        type:Array,
+        default:[]
+    },
     beds:{
         type:Number
     },
     year:{
-        type:Number
+        type:Date,
+        default:Date.now
     },
     bath:{
         type:Number
@@ -32,7 +33,8 @@ const realEstateSchema=new mongoose.Schema({
         type:String
     },
     status:{
-        type:String
+        type:String,
+        default:false
     },
     description:{
         type:String
@@ -40,4 +42,4 @@ const realEstateSchema=new mongoose.Schema({
     
 },{timestamps:true})
 
-module.exports=mongoose.model('Real_estate',realEstateSchema)
+module.exports=mongoose.model('Estate',realEstateSchema)
