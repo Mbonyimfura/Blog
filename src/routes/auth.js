@@ -41,28 +41,4 @@ router.post('/login',async(req,res)=>{
     res.status(400).send(e)
     }
 })
-//logout user
-
-router.post('/logout',verifyToken,userRole,async(req,res)=>{
-    try{
-        req.user.token=req.user.token.filter((token)=>{
-        return token.token!==req.token
-        })
-        await req.user.save()
-        res.send()
-            }catch(e){
-        res.status(500).send()
-            }
-})
-router.post('/logoutAll',verifyToken,async(req,res)=>{
-        try{
-    req.user.token=[]
-    await req.user.save()
-    res.send()
-        }catch(e){
-    res.status(500).send()
-        }
-       }
-)
-
 module.exports=router

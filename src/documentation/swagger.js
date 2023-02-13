@@ -3,6 +3,7 @@ const swaggerJSDocs=require('swagger-jsdoc');
 const userRouteDocs=require('./user');
 const postRouteDocs=require('./post');
 const estateRouteDocs=require('./estate')
+const MessageRouteDocs=require('./contact')
 const options = {
   definition: {
     openapi: '3.0.0',
@@ -24,7 +25,8 @@ const options = {
     tags: [
       { name: 'User', description: 'User Routes' },
       { name: 'Post', description: 'Post Routes' },
-      {name:'Estate',description:'Estate Route'}
+      {name:'Estate',description:'Estate Route'},
+      {name:'Message',description:'Message Route'}
     ],
     components: {
       securitySchemes: {
@@ -37,7 +39,7 @@ const options = {
         },
       },
     },
-    paths: { ...userRouteDocs.userRouteDocs,...postRouteDocs.postRouteDocs,...estateRouteDocs.estateRouteDocs},
+    paths: { ...userRouteDocs.userRouteDocs,...postRouteDocs.postRouteDocs,...estateRouteDocs.estateRouteDocs,...MessageRouteDocs.MessageRouteDocs},
   },
   apis: ['../routes/**/*.js'],
 };
