@@ -4,6 +4,7 @@ const bcrypt=require('bcrypt')
 const {verifyToken,userRole}=require('../middleware/auth')
 const jwt=require('jsonwebtoken');
 const user = require('../models/user');
+const { sendWelcomeEmail}=require('../emails/account')
 
 //Register 
 router.post('/register',async(req,res)=>{
@@ -15,8 +16,10 @@ const user= await User.create({
     email:req.body.email,
     password:hashedPassword,
     role:req.body.role
+    
 })
 
+ sendWelcomeEmail(user.email,user.username)
 res.status(200).json(user)
 }catch(e){
 res.status(500).send(e)
