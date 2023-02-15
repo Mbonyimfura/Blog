@@ -178,6 +178,11 @@ const updatePost = {
 const likePost = {
     tags:['Post'],
     description:"Like a Post",
+    security: [
+        {
+          token: [],
+        },
+    ],
     parameters:[
         {
             name:"id",
@@ -202,33 +207,7 @@ const likePost = {
         }
     }
 }
-const unLikePost = {
-    tags:['Post'],
-    description:"unlike a Post",
-    parameters:[
-        {
-            name:"id",
-            in:"path",
-            description:"id of the post",
-            type:"string",
-            example:"63caaf3527b29e1d399896da"
-        }
-    ],
-    responses:{
-        200:{
-            description:"OK",
-            content:{
-                 "application/json":{
-                    type:'object',
-                    example:{
-                        status:"success",
-                        data:[]
-                    }
-                 }
-            }
-        }
-    }
-}
+
 const createComment = {
     tags:['Post'],
     description:"Create a comment",
@@ -293,11 +272,9 @@ exports.postRouteDocs = {
         patch:updatePost
     },
     "/api/posts/like/{id}":{
-        post:likePost
+        patch:likePost
     },
-    "/api/posts/unlike/{id}":{
-        post:unLikePost
-    },
+   
     "/api/comments/create/{id}":{
         post:createComment
     },
