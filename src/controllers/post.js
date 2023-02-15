@@ -1,4 +1,4 @@
-const cloudinary=require("../../helpers/cloudinary");
+const cloudinary=require("../helpers/cloudinary");
 const comment = require("../models/comment");
 const Post=require('../models/post')
 //Create post
@@ -74,37 +74,69 @@ const getAllPost=async(req,res)=>{
       }
       res.status(200).json(posts);
     } catch (err) {
-      res.status(500).json(err);
+      res.status(404).json('post do not exist');
     }
 }
 //post likes
 const postLikes=async(req,res)=>{
   try {
-    const post=await Post.findOne({_id:req.params.id})  
-    if(!post){
-      res.status(500).json({message:"Post not found"})  
+
+    // console.log("this is the user Id " + userId)
+    const {likeByID} = await Post.findById(req.params.id);
+    
+    const post = await Post.findById(req.params.id);
+
+    if (post) {
+
+        if(likeByID.includes(req.user.id)){
+            
+            try {
+                // let filteredArray = likedBy.filter(function(value) {
+                //     return value !== userId;
+                //    });
+                   
+
+                const updatePost = await Post.findByIdAndUpdate(
+                    req.params.id,
+
+                    {  
+                        
+                        $pull: { likeByID:req.user.id},
+                        $inc: { likes: -1 },
+                        
+                    },
+                    { new: true }
+                )
+                return res.status(200).json(updatePost);
+            } catch (err) {
+                console.log(err);
+                return  res.status(404).json({ status: "error", err: err.message })
+            }
+        } else {
+            try {
+                const updatePost = await Post.findByIdAndUpdate(
+                    req.params.id,
+                    {
+                        $inc: { likes: 1 },
+                        $push: { likeByID:req.user.id}
+                    },
+                    { new: true }
+                );
+                return  res.status(200).json(updatePost);
+            } catch (err) {
+                return   res.status(404).json(err)
+            }
+        }
     }
-    await Post.updateOne({_id:post._id},{
-      likes:post.likes+1})
-      res.status(201).json('post has been liked')
-  } catch (error) {
-    res.status(400).json(error)  
-  }
+
+    else {
+        return  res.status(401).json({ status: "Post not Exits", err: err.message })
+    }
+} catch (err) {
+    return   res.status(500).json({ status: "Server error", err: err.message })
 }
-const unLikePost=async(req,res)=>{
-  try {
-    const post =await Post.findOne({_id:req.params.id})
-    if(!post){
-      res.status(500).json('Post not found')
-    }
-    await Post.updateOne({_id:post._id},{
-      likes:post.likes-1
-    })
-    res.status(201).json('post has been unliked')
-  } catch (error) {
-    res.status(400).json(error)
-  }
+
 }
 module.exports={
-    createPost,updatePost,getAllPost,getPost,deletePost,postLikes,unLikePost
+    createPost,updatePost,getAllPost,getPost,deletePost,postLikes
 }

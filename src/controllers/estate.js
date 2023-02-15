@@ -1,4 +1,4 @@
-const cloudinary=require("../../helpers/cloudinary");
+const cloudinary=require("../helpers/cloudinary");
 const Estate = require("../models/real_estate");
 //Create Estate
 const createEstate=async(req,res)=>{
