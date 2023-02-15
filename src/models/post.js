@@ -18,6 +18,11 @@ const PostSchema=new mongoose.Schema({
     type:Number,
     default:0
   },
+  likeByID:[{
+type:mongoose.Schema.Types.ObjectId,
+ref:'User',
+default:''
+  }],
   comments:[{
     type:mongoose.Schema.Types.ObjectId,
     ref:'Comment'

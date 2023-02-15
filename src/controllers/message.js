@@ -1,4 +1,4 @@
-const mailer=require('../../helpers/email')
+const mailer=require('../helpers/email')
 const Contact=require('../models/contact')
 
 const createMessage=async(req,res)=>{
