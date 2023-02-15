@@ -18,8 +18,7 @@ const user= await User.create({
     role:req.body.role
     
 })
-
- sendWelcomeEmail(user.email,user.username)
+sendWelcomeEmail(user.email,user.username)
 res.status(200).json(user)
 }catch(e){
 res.status(500).send(e)
