@@ -1,8 +1,12 @@
 const jwt=require('jsonwebtoken')
 
 const verifyToken=async(req,res,next)=>{
-    const token=req.headers.token || req.headers.authorization ||req.headers.Authorization
-    if(!token) return res.status(404).json({message:'token not found'})
+  const authHeader=req.headers.authorization|| req.headers.token;
+  if(!authHeader || !authHeader.startsWith('Bearer')){
+ return res.status(401).json('No token provided')
+}
+const token=authHeader.split(' ')[1]
+if(!token) return res.status(401).json('No token provided')
     try{
     const decoded=jwt.verify(token,process.env.TOKEN_KEY)
    

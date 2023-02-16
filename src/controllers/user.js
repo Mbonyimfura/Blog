@@ -25,6 +25,7 @@ res.status(500).send(e)
 const getUser=async(req,res)=>{
     try{
         const user=await User.findById(req.params.id);
+        if(!user) return res.status(401).json('user not found')
         const {password,...others}=user._doc
         res.status(200).json(others)
             }catch(e){
@@ -38,12 +39,13 @@ const deleteUser=async(req,res)=>{
    res.status(200).json('User has been deleted successful');
    }
    catch(e){
-   res.status(500).send(e)
+   res.status(400).send(e)
    }
 }
 const getAllUsers=async(req,res)=>{
     try{
 const user=await User.find()
+if(!user) return res.status(401).json('user not found')
 res.status(200).json(user)
     }catch(e){
 res.status(404).json('users not found')
