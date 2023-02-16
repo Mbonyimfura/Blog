@@ -45,6 +45,7 @@ const getAllEstate=async(req,res)=>{
 const getEstate= async (req, res) => {
     try {
       const estate = await Estate.findById(req.params.id);
+      if(!estate) return res.status(404).json('That estate does not exist')
       res.status(200).json(estate);
     } catch (e) {
       res.status(500).json(e);
@@ -54,7 +55,7 @@ const getEstate= async (req, res) => {
 const updateEstate=async(req,res)=>{
   try {
     const estate=await Estate.findById(req.params.id);
-    if(!estate) return res.status(400).json({message:"Estate not Found"})
+    if(!estate) return res.status(404).json({message:"Estate not Found"})
     if(estate.image){
         for(let image in estate.image){
             await cloudinary.uploader.destroy(image);

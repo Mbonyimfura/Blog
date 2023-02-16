@@ -13,13 +13,14 @@ const createPost=async(req,res)=>{
         res.status(201).json(post)
     }
     catch(e){
-        res.status(500).json(e)
+        res.status(500).json('internal server')
     } 
 }
 //get post
 const getPost= async (req, res) => {
     try {
       const post = await Post.findById(req.params.id);
+      if(!post) return res.status(404).json('post does not exist')
       res.status(200).json(post);
     } catch (err) {
       res.status(500).json(err);
@@ -29,6 +30,7 @@ const getPost= async (req, res) => {
 const updatePost=async(req,res)=>{
   try {
     const post=await Post.findById(req.params.id);
+    if(!post) return res.status(404).json('post does not exist')
     await cloudinary.uploader.destroy(post.image);
     const result = await cloudinary.uploader.upload(req.file.path);
     const updated = await Post.findByIdAndUpdate(req.params.id,{$set:{
@@ -48,6 +50,7 @@ const updatePost=async(req,res)=>{
 const deletePost=async(req,res)=>{
     try {
         const post = await Post.findById(req.params.id);
+
         if (post.username === req.body.username) {
           try {
             await post.delete();
@@ -91,11 +94,7 @@ const postLikes=async(req,res)=>{
         if(likeByID.includes(req.user.id)){
             
             try {
-                // let filteredArray = likedBy.filter(function(value) {
-                //     return value !== userId;
-                //    });
-                   
-
+                
                 const updatePost = await Post.findByIdAndUpdate(
                     req.params.id,
 
