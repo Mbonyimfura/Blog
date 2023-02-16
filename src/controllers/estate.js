@@ -56,8 +56,8 @@ const updateEstate=async(req,res)=>{
   try {
     const estate=await Estate.findById(req.params.id);
     if(!estate) return res.status(404).json({message:"Estate not Found"})
-    if(estate.image){
-        for(let image in estate.image){
+    if(estate.images){
+        for(let image in estate.images){
             await cloudinary.uploader.destroy(image);
         }
     }
