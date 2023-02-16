@@ -8,7 +8,6 @@ router.post('/',multer.upload.array("images"),createEstate);
 // router.route('/').post(auth.userRole,createPost)
 
  router.route('/get/:id').get(getEstate)
-
 // //Update post
 router.route('/update/:id').patch(multer.upload.array("images"),updateEstate)
 // //delete estate

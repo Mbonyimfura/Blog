@@ -28,7 +28,7 @@ const getUser=async(req,res)=>{
         const {password,...others}=user._doc
         res.status(200).json(others)
             }catch(e){
-                res.status(404).json('User with that id that is not exist')
+                res.status(404).json('User with that id does  not exist')
             } 
 }
 //delete user
