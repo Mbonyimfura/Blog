@@ -47,6 +47,7 @@ const updateMessage=async(req,res)=>{
 const deleteMessage=async(req,res)=>{
     try {
       const message=await Contact.findByIdAndDelete(req.params.id)
+      if(!message) return res.status(404).json('no message exist ')
       res.status(200).json('message deleted successfully ')  
     } catch (error) {
         res.status(404).json('not found')

@@ -29,7 +29,7 @@ res.status(500).send(e)
 router.post('/login',async(req,res)=>{
     try{
         const user=await User.findOne({username:req.body.username})
-        if(!user) return res.status(401).json('Unable to login')
+        if(!user) return res.status(401).json('Unable to login check data')
         const match= await bcrypt.compare(req.body.password,user.password);
         if(!match){
          res.status(401).send('Unable to login check your credentials')

@@ -1,6 +1,5 @@
 const router=require('express').Router();
 
-
 const {userRole, verifyToken}=require('../middleware/auth')
 const {updateUser,getUser,deleteUser,getAllUsers}=require('../controllers/user');
 const { route } = require('./auth');

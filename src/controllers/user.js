@@ -11,13 +11,13 @@ const updateUser=async(req,res)=>{
             req.body.password=await bcrypt.hash(req.body.password,salt)
         }
  try{
-const user=await User.findOneAndUpdate(req.params.id,{
-    $set:req.body,
-},
-{new:true})
+    const user = await User.findOneAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+      })
 res.status(200).json(user);
 }catch(e){
-res.status(500).send(e)
+res.status(500).send('please review your data and try again later')
 }
 }
 
